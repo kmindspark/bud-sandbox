@@ -11,7 +11,7 @@ module Scatter
   end
 
   bloom do
-      message_func_scatter <~ (ips_scatter * data_scatter * timer).combos {|i, d, t| [i.val, d.val] if (@sender > 0 and (d.key % @num_receivers) == i.key and ping(i.val))}
+      message_func_scatter <~ (ips_scatter * data_scatter * timer).combos {|i, d, t| [i.val, @data[d.key]] if (@sender > 0 and (d.key % @num_receivers) == i.key and ping(i.val))}
       received_scatter <= message_func_scatter {|m| [m.val]}
       stdio <~ message_func_scatter.inspected
   end
