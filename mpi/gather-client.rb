@@ -1,15 +1,16 @@
 require 'rubygems'
 require 'backports'
 require 'bud'
-require_relative 'scatter-test'
+require_relative 'gather-test'
 
 class Client
   include Bud
-  include ScatterTest
+  include GatherTest
 
   def initialize(server, sender, num_receivers, id, opts={})
     @server = server
     $sender = sender.to_i
+    $idx = id.to_i
     @num_receivers = num_receivers.to_i
     super opts
   end
